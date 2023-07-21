@@ -9,7 +9,9 @@
 ```
 # RESUME
 
-**ASpider** this is a utility for reconnaissance of the assets of organizations by their autonomous system number (AS, ASN), the utility requires a file with a list of organizations ASN, you can get the AS number by IP address with the following command 
+**ASpider** The main task of this utility is to get the domains that have this IP in A records by IP address, the utility takes as input a file with an ASN list, CIDR, or a list of IPs from which you need to get domain names, as well as subdomains.
+
+The script itself works through the securitytrails website (due to the death of the sonar.omnisint.io project), using selenium and undetected_chromedriver, bypassing the blocking of cloudflare service bots, this script has successfully collected 77,000 domains by ASN.
 
 ```bash
 
@@ -52,10 +54,20 @@ git clone https://github.com/solo10010/ASpider
 cd ASpider
 pip3 install requirements.txt
 chmod +x *.py
-python3 aspider.py
+python3 aspider.py --help
 ```
+# OPTIONS:
 
-# USAGE:
+| Flag | Description |
+|------|-------------|
+| -h, --help | show this help message and exit |
+| --asn | ASN list file |
+| --iplist | ip list file |
+| --oneip | one ip address |
+| --cidr | cidr list file |
+| --cookie | cookie securitytrails |
+
+# USAGE ASN LIST:
 
 ```bash
 # asn list
@@ -63,15 +75,35 @@ cat asn.txt
 AS15169
 AS32934
 # command to get domains and subdomains
-python3 aspider.py -a asn.txt
-# command to get domains and subdomains and live servers
-python3 aspider.py -a asn.txt -s
+python3 aspider.py --asn asn.txt --cookie "YOU_SECURITYTRAILS_COOKIE"
 ```
 
-# OPTIONS:
+# USAGE CIDR LIST:
 
-| Flag | Description |
-|------|-------------|
-| -h, --help | show this help message and exit |
-| -a, --asn | file list of autonomous systems (AS ,ASN ) |
-| -s, --server | Check IP for live servers |
+```bash
+# cidr list
+cat cidr.txt
+185.116.192.0/24
+185.125.88.0/24
+194.146.41.0/24
+# command to get domains and subdomains
+python3 aspider.py --cidr cidr.txt --cookie "YOU_SECURITYTRAILS_COOKIE"
+```
+
+# USAGE IP LIST:
+
+```bash
+# ip list
+cat iplist.txt
+185.98.5.234
+194.4.58.140
+185.98.5.235
+# command to get domains and subdomains
+python3 aspider.py --iplist iplist.txt --cookie "YOU_SECURITYTRAILS_COOKIE"
+```
+
+# USAGE ONE IP:
+
+```bash
+python3 aspider.py --oneip 185.98.5.234 --cookie "YOU_SECURITYTRAILS_COOKIE"
+```
