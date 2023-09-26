@@ -53,6 +53,7 @@ curl https://sonar.omnisint.io/reverse/140.82.121.4
 git clone https://github.com/solo10010/ASpider
 cd ASpider
 pip3 install requirements.txt
+pip install undetected-chromedriver -U
 chmod +x *.py
 python3 aspider.py --help
 ```
