@@ -33,7 +33,7 @@ global driver
 def auth_browser():
     # Authorization
     options = uc.ChromeOptions()
-    options.add_argument( '--headless' )
+    options.headless = False
     options.add_argument( '--auto-open-devtools-for-tabs' )
     options.add_argument( '--disable-popup-blocking' )
     driver = uc.Chrome(options = options)
